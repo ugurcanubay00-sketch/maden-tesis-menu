@@ -2,108 +2,330 @@
 <html lang="tr">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WK09108TBF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WK09108TBF');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WK09108TBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WK09108TBF');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesis Dijital Menü</title>
+    <title>Maden Soğuk Su Tesisleri | Dijital Menü</title>
+    
+    <!-- Modern Fontlar ve İkonlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Dosyan (style.css'i ayrıca güncelleyebilirsin, temel yapı baki kalacaktır) -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- SADECE BU SAYFAYA ÖZEL HIZLI STİL GÜNCELLEMELERİ -->
+    <style>
+        :root {
+            --ana-renk: #2c3e50;
+            --vurgu-renk: #27ae60;
+            --arka-plan: #f8f9fa;
+            --kart-bg: #ffffff;
+            --metin-koyu: #333333;
+            --metin-acik: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--arka-plan);
+            color: var(--metin-koyu);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 50px;
+        }
+
+        /* --- HEADER TASARIMI --- */
+        .menu-header {
+            background-color: var(--kart-bg);
+            padding: 20px 15px;
+            text-align: center;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .header-bilgi-satiri {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .durum-rozet {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--vurgu-renk);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .canli-isik {
+            width: 8px;
+            height: 8px;
+            background-color: var(--vurgu-renk);
+            border-radius: 50%;
+            animation: yan-son 1.5s infinite;
+        }
+
+        @keyframes yan-son {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .logo-alani img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .menu-header h1 {
+            font-size: 1.5rem;
+            color: var(--ana-renk);
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+
+        .menu-header p {
+            color: var(--metin-acik);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* --- KATEGORİ MENÜSÜ (Yana Kaydırmalı) --- */
+        .kategori-grid {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 0 15px 15px 15px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .kategori-grid::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .kategori-kart {
+            flex: 0 0 auto;
+            background-color: var(--kart-bg);
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .kategori-kart span {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--metin-koyu);
+            white-space: nowrap;
+        }
+
+        .kategori-kart.aktif {
+            background-color: var(--ana-renk);
+            border-color: var(--ana-renk);
+        }
+
+        .kategori-kart.aktif span {
+            color: #ffffff;
+        }
+
+        .daire-ikon img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: none; /* Modern görünüm için resimler gizlendi, istenirse açılabilir */
+        }
+
+        /* --- MENÜ İÇERİK BÖLÜMÜ --- */
+        .menu-konteyner {
+            padding: 0 15px;
+        }
+
+        .menu-bolum {
+            display: none; /* Sadece aktif olanı göstereceğiz */
+            animation: fadin 0.4s ease;
+        }
+
+        .menu-bolum.aktif-bolum {
+            display: block;
+        }
+
+        @keyframes fadin {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .urun {
+            background-color: var(--kart-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border-left: 4px solid var(--vurgu-renk);
+        }
+
+        .urun-detay {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 70%;
+        }
+
+        .urun-adi {
+            font-weight: 600;
+            color: var(--ana-renk);
+            font-size: 1.05rem;
+        }
+
+        .urun-aciklama {
+            font-size: 0.8rem;
+            color: var(--metin-acik);
+            line-height: 1.3;
+        }
+
+        .fiyat {
+            font-weight: 700;
+            color: var(--vurgu-renk);
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        /* --- FOOTER (Alt Bilgi) --- */
+        .site-footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px 15px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .temsili-not {
+            font-size: 0.75rem;
+            color: var(--metin-acik);
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .footer-telif {
+            font-size: 0.8rem;
+            color: var(--ana-renk);
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- ÜST BİLGİ ALANI -->
     <header class="menu-header">
         <div class="header-bilgi-satiri">
             <span class="rozet durum-rozet">
                 <span class="canli-isik"></span> 7/24 Açık
             </span>
-            
         </div>
 
         <div class="logo-alani">
-            <img src="img/logo.jpg" alt="Tesis Logosu">
+            <img src="img/logo.jpg" alt="Maden Tesis Logosu">
         </div>
         <h1>Maden Soğuk Su Tesisleri</h1>
         <p>Lezzet ve Huzur Durağı</p>
     </header>
 
-    <nav class="kategori-grid">
+    <!-- KATEGORİ SEÇİM ALANI -->
+    <nav class="kategori-grid" id="kategoriMenusu">
         <div class="kategori-kart aktif" data-hedef="sicak-icecekler">
-            <div class="daire-ikon"><img src="img/sicaklar.jpg" alt="Sıcak İçecekler"></div>
-            <span>Sıcak İçecekler</span>
+            <span>☕ Sıcak İçecekler</span>
         </div>
         <div class="kategori-kart" data-hedef="soguk-icecekler">
-            <div class="daire-ikon"><img src="img/soguklar.png" alt="Soğuk İçecekler"></div>
-            <span>Soğuk İçecekler</span>
+            <span>🥤 Soğuk İçecekler</span>
         </div>
         <div class="kategori-kart" data-hedef="izgara-yemek">
-            <div class="daire-ikon"><img src="img/ızgaraa.jpg" alt="Izgara & Yemek"></div>
-            <span>Izgara & Yemek</span>
+            <span>🥩 Izgara & Yemek</span>
         </div>
         <div class="kategori-kart" data-hedef="gozleme">
-            <div class="daire-ikon"><img src="img/gözleme.jpg" alt="Gözleme Çeşitleri"></div>
-            <span>Gözlemeler</span>
+            <span>🫓 Gözlemeler</span>
         </div>
         <div class="kategori-kart" data-hedef="kahvalti">
-            <div class="daire-ikon"><img src="img/kahvaltı.jpg" alt="Kahvaltı"></div>
-            <span>Kahvaltı & Çorba</span>
+            <span>🍳 Kahvaltı & Çorba</span>
         </div>
         <div class="kategori-kart" data-hedef="tatli">
-            <div class="daire-ikon"><img src="img/tatlılar.png" alt="Tatlı"></div>
-            <span>Tatlılar</span>
+            <span>🍰 Tatlılar</span>
         </div>
     </nav>
 
+    <!-- MENÜ LİSTELERİ -->
     <main class="menu-konteyner">
 
+        <!-- Sıcak İçecekler -->
         <section id="sicak-icecekler" class="menu-bolum aktif-bolum">
             <div class="urun"><span class="urun-adi">Çay</span><span class="fiyat">25 TL</span></div>
             <div class="urun"><span class="urun-adi">Fincan Çay</span><span class="fiyat">50 TL</span></div>
             <div class="urun"><span class="urun-adi">Double Çay</span><span class="fiyat">50 TL</span></div>
             <div class="urun"><span class="urun-adi">Oralet</span><span class="fiyat">25 TL</span></div>
-            <div class="urun"><span class="urun-adi">Türk Kahvesi</span><span class="fiyat">150TL</span></div>
-            <div class="urun"><span class="urun-adi">Dibek Kahvesi</span><span class="fiyat">150TL</span></div>
+            <div class="urun"><span class="urun-adi">Türk Kahvesi</span><span class="fiyat">150 TL</span></div>
+            <div class="urun"><span class="urun-adi">Dibek Kahvesi</span><span class="fiyat">150 TL</span></div>
             <div class="urun">
-    <div class="urun-detay">
-        <span class="urun-adi">Nescafe Çeşitleri</span>
-        <span class="urun-aciklama">3'ü 1 Arada, 2'si 1 Arada, Sütlü Köpüklü, Gold</span>
-    </div>
-    <span class="fiyat">60 TL</span>
-</div>
+                <div class="urun-detay">
+                    <span class="urun-adi">Nescafe Çeşitleri</span>
+                    <span class="urun-aciklama">3'ü 1 Arada, 2'si 1 Arada, Sütlü Köpüklü, Gold</span>
+                </div>
+                <span class="fiyat">60 TL</span>
+            </div>
         </section>
 
+        <!-- Soğuk İçecekler -->
         <section id="soguk-icecekler" class="menu-bolum">
-        <div class="urun"><span class="urun-adi">Su</span><span class="fiyat">20 TL</span></div>
-
-       <div class="urun">
-    <div class="urun-detay">
-        <span class="urun-adi">Kutu İçecekler</span>
-        <span class="urun-aciklama">Coca Cola, Coca Cola Zero, Fanta, Sprite</span>
-    </div> <span class="fiyat">75 TL</span> </div>
+            <div class="urun"><span class="urun-adi">Su</span><span class="fiyat">20 TL</span></div>
+            <div class="urun">
+                <div class="urun-detay">
+                    <span class="urun-adi">Kutu İçecekler</span>
+                    <span class="urun-aciklama">Coca Cola, Coca Cola Zero, Fanta, Sprite</span>
+                </div>
+                <span class="fiyat">75 TL</span> 
+            </div>
             <div class="urun"><span class="urun-adi">Şişe Kola & Fanta</span><span class="fiyat">60 TL</span></div>
             <div class="urun"><span class="urun-adi">Limonata (Ev Yapımı)</span><span class="fiyat">100 TL</span></div>
             <div class="urun"><span class="urun-adi">Açık (Köy) Ayranı</span><span class="fiyat">40 TL</span></div>
             <div class="urun">
-    <div class="urun-detay">
-        <span class="urun-adi">Soğuk Çaylar</span>
-        <span class="urun-aciklama">Şeftali, Limon, Mango & Ananas, Karpuz,</span>
-    </div> <span class="fiyat">75 TL</span> </div>
-                <div class="urun">
-    <div class="urun-detay">
-        <span class="urun-adi">Kutu Meyve Suları </span>
-        <span class="urun-aciklama">Şeftali, Kayısı, Vişne, Karışık, Atom</span>
-    </div> <span class="fiyat">75 TL</span> </div>
-    <div class="urun"><span class="urun-adi">Küçük Meyve Suları</span><span class="fiyat">30 TL</span></div>
-     <div class="urun"><span class="urun-adi">Soda Çeşitleri</span><span class="fiyat">35 TL</span></div>
-
-
+                <div class="urun-detay">
+                    <span class="urun-adi">Soğuk Çaylar</span>
+                    <span class="urun-aciklama">Şeftali, Limon, Mango & Ananas, Karpuz</span>
+                </div> 
+                <span class="fiyat">75 TL</span> 
+            </div>
+            <div class="urun">
+                <div class="urun-detay">
+                    <span class="urun-adi">Kutu Meyve Suları</span>
+                    <span class="urun-aciklama">Şeftali, Kayısı, Vişne, Karışık, Atom</span>
+                </div> 
+                <span class="fiyat">75 TL</span> 
+            </div>
+            <div class="urun"><span class="urun-adi">Küçük Meyve Suları</span><span class="fiyat">30 TL</span></div>
+            <div class="urun"><span class="urun-adi">Soda Çeşitleri</span><span class="fiyat">35 TL</span></div>
         </section>
 
+        <!-- Izgara & Yemek -->
         <section id="izgara-yemek" class="menu-bolum">
             <div class="urun"><span class="urun-adi">Kavurma</span><span class="fiyat">500 TL</span></div>
             <div class="urun"><span class="urun-adi">Adana Kebap</span><span class="fiyat">450 TL</span></div>
@@ -114,23 +336,22 @@
             <div class="urun"><span class="urun-adi">Sac Tava</span><span class="fiyat">500 TL</span></div>
             <div class="urun"><span class="urun-adi">Tavuk Kanat</span><span class="fiyat">400 TL</span></div>
             <div class="urun"><span class="urun-adi">Tavuk Şiş</span><span class="fiyat">400 TL</span></div>
-
             <div class="urun"><span class="urun-adi">Kavurma Dürüm</span><span class="fiyat">400 TL</span></div>
             <div class="urun"><span class="urun-adi">Adana Dürüm</span><span class="fiyat">250 TL</span></div>
             <div class="urun"><span class="urun-adi">Kuşbaşı Dürüm</span><span class="fiyat">350 TL</span></div>
             <div class="urun"><span class="urun-adi">Ciğer Dürüm</span><span class="fiyat">300 TL</span></div>
             <div class="urun"><span class="urun-adi">Köfte Dürüm</span><span class="fiyat">250 TL</span></div>
             <div class="urun"><span class="urun-adi">Tavuk Dürüm</span><span class="fiyat">250 TL</span></div>
-            
-            
         </section>
 
+        <!-- Gözlemeler -->
         <section id="gozleme" class="menu-bolum">
             <div class="urun"><span class="urun-adi">Çökelekli Gözleme</span><span class="fiyat">150 TL</span></div>
             <div class="urun"><span class="urun-adi">Patatesli Gözleme</span><span class="fiyat">150 TL</span></div>
             <div class="urun"><span class="urun-adi">Yağlı Gözleme</span><span class="fiyat">200 TL</span></div>
         </section>
 
+        <!-- Kahvaltı & Çorba -->
         <section id="kahvalti" class="menu-bolum">
             <div class="urun"><span class="urun-adi">Serpme Kahvaltı (Kişi Başı)</span><span class="fiyat">350 TL</span></div>
             <div class="urun"><span class="urun-adi">Kahvaltı Tabağı</span><span class="fiyat">350 TL</span></div>
@@ -141,13 +362,46 @@
             <div class="urun"><span class="urun-adi">Söğüş Tabağı</span><span class="fiyat">50 TL</span></div>
         </section>
 
+        <!-- Tatlılar -->
         <section id="tatli" class="menu-bolum">
             <div class="urun"><span class="urun-adi">Fırın Sütlaç</span><span class="fiyat">100 TL</span></div>
-             <div class="urun"><span class="urun-adi">Tatlı Çeşitleri</span><span class="fiyat">150 TL</span></div>
+            <div class="urun"><span class="urun-adi">Tatlı Çeşitleri</span><span class="fiyat">150 TL</span></div>
         </section>
 
     </main>
 
-    <script src="script.js"></script>
+    <!-- FOOTER (Alt Bilgi ve Uyarılar) -->
+    <footer class="site-footer">
+        <p class="temsili-not">* Menüde yer alan görseller temsilidir, masaya gelen sunumla ufak farklılıklar gösterebilir.</p>
+        <p class="footer-telif">&copy; 2026 Maden Soğuk Su Tesisleri. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- ETKİLEŞİM İÇİN JAVASCRIPT KODU (Kategori Geçişlerini Sağlar) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const kategoriKartlari = document.querySelectorAll('.kategori-kart');
+            const menuBolumleri = document.querySelectorAll('.menu-bolum');
+
+            kategoriKartlari.forEach(kart => {
+                kart.addEventListener('click', function() {
+                    // 1. Tüm kartlardan aktif sınıfını kaldır
+                    kategoriKartlari.forEach(k => k.classList.remove('aktif'));
+                    // 2. Tıklanan karta aktif sınıfını ekle
+                    this.classList.add('aktif');
+
+                    // 3. Hedef bölümü bul
+                    const hedefId = this.getAttribute('data-hedef');
+                    
+                    // 4. Tüm menü bölümlerini gizle
+                    menuBolumleri.forEach(bolum => {
+                        bolum.classList.remove('aktif-bolum');
+                    });
+
+                    // 5. Sadece hedeflenen bölümü göster
+                    document.getElementById(hedefId).classList.add('aktif-bolum');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
