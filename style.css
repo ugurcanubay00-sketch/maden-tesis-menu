@@ -1,35 +1,121 @@
-/* Genel Yapı ve Sıfırlamalar */
+/* =========================================
+   1. GENEL YAPILANDIRMA VE SIFIRLAMALAR
+   ========================================= */
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #121212; /* Derin karanlık arka plan */
+    background-color: #121212; 
     margin: 0;
     padding: 0;
-    color: #e0e0e0; /* Açık gri, okunaklı metin rengi */
+    color: #e0e0e0; 
     -webkit-tap-highlight-color: transparent;
 }
 
-/* --- YENİLENMİŞ ÜST BAŞLIK ALANI --- */
+/* Sayfa ilk yüklendiğinde ana menüyü gizliyoruz */
+#ana-icerik {
+    display: none;
+}
+
+
+/* =========================================
+   2. GİRİŞ EKRANI (AÇILIŞ) STİLLERİ
+   ========================================= */
+#giris-ekrani {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #0a0a0a; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#giris-ekrani.gizle {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.giris-kutusu {
+    text-align: center;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.giris-logo {
+    width: 140px; height: 140px;
+    border-radius: 50%; object-fit: cover;
+    margin-bottom: 25px;
+    border: 1px solid #333; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.giris-baslik { 
+    font-size: 1.8rem; 
+    color: #ffffff; 
+    margin: 0 0 8px 0; 
+    font-weight: 700;
+}
+
+.giris-altbaslik { 
+    font-size: 1rem; 
+    color: #a0a0a0; 
+    margin-bottom: 45px; 
+}
+
+.btn-giris {
+    display: block; width: 100%;
+    padding: 16px; margin-bottom: 15px;
+    border-radius: 30px; 
+    font-size: 1.1rem; font-weight: 700;
+    text-decoration: none; text-align: center;
+    transition: all 0.2s ease; cursor: pointer;
+    box-sizing: border-box;
+}
+
+.btn-menu {
+    background-color: #fbc531; 
+    color: #0a0a0a; 
+    border: none;
+    box-shadow: 0 4px 20px rgba(251, 197, 49, 0.3); 
+}
+
+.btn-degerlendir {
+    background-color: transparent; 
+    color: #fbc531; 
+    border: 2px solid #fbc531; 
+}
+
+.btn-giris:active { 
+    transform: scale(0.96); 
+}
+
+.btn-degerlendir:active {
+    background-color: rgba(251, 197, 49, 0.1); 
+}
+
+
+/* =========================================
+   3. ANA MENÜ - ÜST BAŞLIK ALANI
+   ========================================= */
 .menu-header {
     background-color: #0a0a0a;
-    /* CSS ile arka plana eklenen lüks, hafif çizgili modern doku */
     background-image: 
         linear-gradient(rgba(251, 197, 49, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(251, 197, 49, 0.02) 1px, transparent 1px);
-    background-size: 20px 20px; /* Çizgi aralıkları */
-    
+    background-size: 20px 20px; 
     text-align: center;
-    padding: 20px 15px 30px 15px; /* İç boşluklar dengelendi */
+    padding: 20px 15px 30px 15px; 
     border-radius: 0 0 28px 28px;
     border-bottom: 2px solid #fbc531;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     position: relative;
 }
 
-/* Üst Bilgi Satırı Tasarımı */
 .header-bilgi-satiri {
     display: flex;
     justify-content: space-between;
@@ -38,7 +124,33 @@ body {
     padding: 0 5px;
 }
 
-/* Genel Rozet Tasarımı */
+/* Geri Butonu */
+.btn-geri {
+    background-color: transparent;
+    color: #fbc531;
+    border: 1px solid #fbc531;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-geri span {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.btn-geri:active {
+    background-color: rgba(251, 197, 49, 0.15);
+    transform: scale(0.95);
+}
+
+/* Rozetler ve Işık Animasyonları */
 .rozet {
     font-size: 11px;
     font-weight: 700;
@@ -48,7 +160,6 @@ body {
     text-transform: uppercase;
 }
 
-/* 7/24 Açık Rozeti */
 .durum-rozet {
     background-color: #1e1e1e;
     color: #ffffff;
@@ -58,14 +169,6 @@ body {
     gap: 6px;
 }
 
-/* Wi-Fi Rozeti */
-.wifi-rozet {
-    background-color: rgba(251, 197, 49, 0.1);
-    color: #fbc531;
-    border: 1px solid rgba(251, 197, 49, 0.2);
-}
-
-/* Canlı Yanıp Sönen Yeşil Işık */
 .canli-isik {
     width: 7px;
     height: 7px;
@@ -76,23 +179,12 @@ body {
     animation: nabizEtkisi 1.6s infinite;
 }
 
-/* Işık Animasyonu (Pulse) */
 @keyframes nabizEtkisi {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7);
-    }
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 6px rgba(46, 213, 115, 0);
-    }
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(46, 213, 115, 0);
-    }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 213, 115, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 213, 115, 0); }
 }
 
-/* --- LOGO VE BAŞLIK YAZILARI --- */
 .logo-alani {
     width: 70px;
     height: 70px;
@@ -126,7 +218,10 @@ body {
     color: #a0a0a0;
 }
 
-/* --- 2x3 KATEGORİ IZGARASI --- */
+
+/* =========================================
+   4. KATEGORİ IZGARASI (2x3)
+   ========================================= */
 .kategori-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -136,7 +231,6 @@ body {
     margin: 0 auto;
 }
 
-/* Yuvarlak Kategori Kartları */
 .kategori-kart {
     display: flex;
     flex-direction: column;
@@ -183,7 +277,7 @@ body {
     white-space: nowrap;
 }
 
-/* Aktif (Seçili) Kategori Stili */
+/* Aktif Kategori Durumu */
 .kategori-kart.aktif .daire-ikon {
     border-color: #fbc531;
     box-shadow: 0 0 15px rgba(251, 197, 49, 0.4);
@@ -198,14 +292,16 @@ body {
     font-weight: 700;
 }
 
-/* --- MENÜ ÜRÜN LİSTESİ --- */
+
+/* =========================================
+   5. MENÜ ÜRÜN LİSTESİ ALANI
+   ========================================= */
 .menu-konteyner {
     padding: 0 15px 30px 15px;
     max-width: 500px;
     margin: 0 auto;
 }
 
-/* Başlangıçta Tüm Bölümleri Gizle */
 .menu-bolum {
     display: none;
     background: #1e1e1e;
@@ -216,12 +312,21 @@ body {
     animation: ortayaCik 0.4s ease forwards;
 }
 
-/* Sadece Aktif Olan Bölümü Göster */
 .menu-bolum.aktif-bolum {
     display: block;
 }
 
-/* Ürün Satır Tasarımları */
+@keyframes ortayaCik {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .urun {
     display: flex;
     justify-content: space-between;
@@ -240,7 +345,21 @@ body {
     color: #e0e0e0;
 }
 
-/* Fiyat Etiketi - Siyah Üzeri Sarı */
+.urun-detay {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-align: left;
+    padding-right: 15px;
+}
+
+.urun-aciklama {
+    font-size: 12px;
+    color: #8aa0a6; 
+    font-weight: 400; 
+}
+
+/* Fiyat Etiketi */
 .fiyat {
     font-weight: 700;
     color: #121212;
@@ -249,35 +368,75 @@ body {
     border-radius: 8px;
     font-size: 14px;
     box-shadow: 0 2px 6px rgba(251, 197, 49, 0.2);
-    flex-shrink: 0; /* Fiyat kutusunun asla küçülmemesini ve ezilmemesini sağlar */
-    white-space: nowrap; /* TL yazısının alt satıra düşmesini engeller */
+    flex-shrink: 0; 
+    white-space: nowrap; 
+}
+/* =========================================
+   6. ALT BİLGİ (FOOTER) ALANI
+   ========================================= */
+.menu-footer {
+    background-color: #0a0a0a;
+    border-top: 2px solid #2d2d2d;
+    padding: 40px 20px 20px;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 28px 28px 0 0; /* Üst başlığın tam tersi kavis */
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Sayfa İçi Geçiş Animasyonu */
-@keyframes ortayaCik {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.footer-icerik {
+    max-width: 500px;
+    margin: 0 auto;
 }
-/* Ürün adı ve açıklamasını sol tarafta alt alta dizen kutu */
 
-    .urun-detay {
+.footer-baslik {
+    color: #fbc531;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.footer-adres, .footer-iletisim {
+    color: #a0a0a0;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.footer-iletisim a {
+    color: #fbc531;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.sosyal-medya {
+    margin: 25px 0;
     display: flex;
-    flex-direction: column;
-    gap: 3px;
-    text-align: left;
-    padding-right: 15px; /* Yazı uzarsa fiyat kutusuna yapışmasını engeller */
+    justify-content: center;
+    gap: 15px;
 }
 
+.sosyal-link {
+    color: #0a0a0a;
+    background-color: #fbc531;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(251, 197, 49, 0.2);
+}
 
-/* Küçük soluk açıklama yazısının stili */
-.urun-aciklama {
-    font-size: 12px; /* Ürün adına göre daha küçük */
-    color: #8aa0a6; /* Tam istediğin gibi göze batmayan, soluk gri/mavi tonu */
-    font-weight: 400; /* Yazıyı incelterek başlıkla karışmasını önler */
+.sosyal-link:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(251, 197, 49, 0.1);
+}
+
+.footer-copyright {
+    color: #555555;
+    font-size: 12px;
+    margin-top: 25px;
+    border-top: 1px dashed #333333;
+    padding-top: 20px;
 }
